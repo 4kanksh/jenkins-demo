@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git url: 'https://github.com/maxv33f1x5/jenkins-simple-demo.git',
+                git url: 'https://github.com/4kanksh/jenkins-demo.git',
                     branch: 'main'
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             emailext (
                 subject: "SUCCESS: ${JOB_NAME} #${BUILD_NUMBER}",
                 body: "Build succeeded!\nCheck: ${BUILD_URL}",
-                to: "max01.f1x4@gmail.com"
+                to: "akanksh.jpg@gmail.com"
             )
         }
 
@@ -30,7 +30,7 @@ pipeline {
             emailext (
                 subject: "FAILED: ${JOB_NAME} #${BUILD_NUMBER}",
                 body: "Build failed!\nCheck: ${BUILD_URL}",
-                to: "max01.f1x4@gmail.com"
+                to: "akanksh.jpg@gmail.com"
             )
         }
     }
