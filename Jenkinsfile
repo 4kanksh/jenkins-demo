@@ -1,54 +1,28 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven'
-        jdk 'JDK21'
-    }
-
     stages {
-
-        stage('Checkout') {
+        stage('Clone') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Naveen04jan/ven.git',
-                    credentialsId: 'github-token'
+                git url: 'https://github.com/maxv33f1x5/jenkins-simple-demo.git',
+                    branch: 'main'
             }
         }
 
-        stage('Build') {
+        stage('Run script') {
             steps {
-                sh 'mvn clean compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                sh 'mvn exec:java -Dexec.mainClass="com.example.app.App"'
+                sh 'chmod +x script.sh'
+                sh './script.sh'
             }
         }
     }
-
-    
-    post {
+     post {
 
         success {
             emailext (
                 subject: "SUCCESS: ${JOB_NAME} #${BUILD_NUMBER}",
                 body: "Build succeeded!\nCheck: ${BUILD_URL}",
-                to: "akanksh.jpg@gmail.com"
+                to: "max01.f1x4@gmail.com"
             )
         }
 
@@ -56,7 +30,7 @@ pipeline {
             emailext (
                 subject: "FAILED: ${JOB_NAME} #${BUILD_NUMBER}",
                 body: "Build failed!\nCheck: ${BUILD_URL}",
-                to: "akanksh.jpg@gmail.com"
+                to: "max01.f1x4@gmail.com"
             )
         }
     }
